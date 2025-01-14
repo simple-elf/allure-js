@@ -203,7 +203,7 @@ export class AllureReporter implements ReporterV2 {
         (annotation) => annotation.type !== "skip" && annotation.type !== "fixme",
       ).map((annotation) => ({
         name: annotation.type,
-        value: annotation.description?.startsWith("@") ? annotation.description.substring(1) : annotation.description,
+        value: annotation.description!,
       }));
       result.labels!.push(...annotations);
     }
