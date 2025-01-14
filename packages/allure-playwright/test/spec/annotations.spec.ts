@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+import { LabelName } from "allure-js-commons";
 import { runPlaywrightInlineTest } from "../utils.js";
 
 it("should support skip annotation", async () => {
@@ -55,4 +56,26 @@ it("should support fixme annotation", async () => {
       }),
     ]),
   );
+});
+
+it("should support allure metadata in playwright annotation", async () => {
+  const { tests } = await runPlaywrightInlineTest({
+    "sample.test.js": `
+      import { test } from '@playwright/test';
+
+      test('test full report', {
+        annotation: [
+          { type: "@allure.id", description: "12345"},
+          { type: "@allure.label.epic", description: "Smoke"},
+        ],
+      }, async () => {
+      });
+      `,
+  });
+
+  expect(tests).toHaveLength(1);
+  expect(tests[0].labels).toContainEqual({ name: LabelName.ALLURE_ID, value: "12345" });
+  expect(tests[0].labels).toContainEqual({ name: LabelName.EPIC, value: "Smoke" });
+  // TODO add all labels from labels.spec.ts
+  // TODO add label on test.describe level, like suites tags
 });
