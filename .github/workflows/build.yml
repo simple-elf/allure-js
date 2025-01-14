@@ -66,8 +66,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix: # DO NOT MERGE, JUST FOR TESTS
-        node-version: [20] # [18, 20]
-        os: [ubuntu-latest] # [ubuntu-latest, windows-latest]
+        node-version: 20 # [18, 20]
+        os: ubuntu-latest # [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
 
