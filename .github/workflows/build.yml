@@ -65,9 +65,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix: # DO NOT MERGE, JUST FOR TESTS
-        node-version: 20 # [18, 20]
-        os: ubuntu-latest # [ubuntu-latest, windows-latest]
+      matrix:
+        node-version: [18, 20]
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
 
@@ -88,12 +88,6 @@ jobs:
         run: |
           yarn run build
 
-# DO NOT MERGE. JUST FOR TESTS
-#      - name: yarn test
-#        run: |
-#          yarn run test
-
-      # run tests only for specific project - allure-playwright
-      - name: yarn test allure-playwright
+      - name: yarn test
         run: |
-          yarn run test allure-playwright
+          yarn run test
