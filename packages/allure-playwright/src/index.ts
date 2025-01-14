@@ -198,13 +198,15 @@ export class AllureReporter implements ReporterV2 {
     }
 
     // TODO remove skip and fixme type
-    const annotations: Label[] = test.annotations?.filter(
-      (annotation) => annotation.type !== "skip" && annotation.type !== "fixme",
-    ).map((annotation) => ({
-      name: annotation.type,
-      value: annotation.description?.startsWith("@") ? annotation.description.substring(1) : annotation.description,
-    }));
-    result.labels!.push(...annotations);
+    if ("annotations" in test) {
+      const annotations: Label[] = test.annotations?.filter(
+        (annotation) => annotation.type !== "skip" && annotation.type !== "fixme",
+      ).map((annotation) => ({
+        name: annotation.type,
+        value: annotation.description?.startsWith("@") ? annotation.description.substring(1) : annotation.description,
+      }));
+      result.labels!.push(...annotations);
+    }
 
     if (project?.name) {
       result.parameters!.push({ name: "Project", value: project.name });
