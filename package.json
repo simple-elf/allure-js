@@ -3,7 +3,8 @@
   "version": "3.0.8",
   "private": true,
   "workspaces": [
-    "packages/allure-playwright"
+    "packages/allure-playwright",
+    "packages/allure-js-commons"
   ],
   "scripts": {
     "build": "yarn run clean && yarn run compile",
