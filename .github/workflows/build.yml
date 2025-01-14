@@ -88,6 +88,12 @@ jobs:
         run: |
           yarn run build
 
-      - name: yarn test
+# DO NOT MERGE. JUST FOR TESTS
+#      - name: yarn test
+#        run: |
+#          yarn run test
+
+      # run tests only for specific project - allure-playwright
+      - name: yarn test allure-playwright
         run: |
-          yarn run test
+          yarn run test allure-playwright
