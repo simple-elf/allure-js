@@ -197,7 +197,6 @@ export class AllureReporter implements ReporterV2 {
       result.labels!.push(...tags);
     }
 
-    // TODO remove skip and fixme type
     if ("annotations" in test) {
       const annotations: Label[] = test.annotations?.filter(
         (annotation) => annotation.type !== "skip" && annotation.type !== "fixme",
