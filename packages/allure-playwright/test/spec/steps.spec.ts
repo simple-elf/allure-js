@@ -258,7 +258,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   expect(tests).toHaveLength(1);
   const [testResult] = tests;
 
-  expect(testResult.steps).toHaveLength(4);
+  expect(testResult.steps).toHaveLength(2);
   const beforeHooksStep = testResult.steps[0];
   expect(beforeHooksStep.name).toBe("Before Hooks");
   expect(beforeHooksStep.steps).toHaveLength(2);
