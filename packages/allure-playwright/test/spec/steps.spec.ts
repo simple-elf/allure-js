@@ -227,7 +227,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
       import { test, expect } from '@playwright/test';
 
       const example = async (some) => {
-        await test.info().attach("test", { body: some });
+        await test.info().attach(some, { body: some });
       };
 
       test.describe("Scratch", () => {
@@ -258,7 +258,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   expect(tests).toHaveLength(1);
   const [testResult] = tests;
 
-  expect(testResult.steps).toHaveLength(7);
+  expect(testResult.steps).toHaveLength(4);
   const beforeHooksStep = testResult.steps[0];
   expect(beforeHooksStep.name).toBe("Before Hooks");
   expect(beforeHooksStep.steps).toHaveLength(2);
@@ -269,10 +269,24 @@ it("should attach attachments to correct steps in hooks and test steps", async (
 
   const beforeAllAttachmentStep = beforeAllStep.steps[0];
   expect(beforeAllAttachmentStep.name).toBe("test1");
-  expect(beforeAllAttachmentStep.attachments).toHaveLength(2);
+  expect(beforeAllAttachmentStep.attachments).toHaveLength(1);
   expect(beforeAllAttachmentStep.attachments[0]).toEqual(
     expect.objectContaining({
-      name: "test",
+      name: "test1",
+      type: "text/plain",
+    }),
+  );
+
+  const beforeEachStep = beforeHooksStep.steps[1];
+  expect(beforeEachStep.name).toBe("beforeEach hook");
+  expect(beforeEachStep.steps).toHaveLength(1);
+
+  const beforeEachAttachmentStep = beforeEachStep.steps[0];
+  expect(beforeEachAttachmentStep.name).toBe("test2");
+  expect(beforeEachAttachmentStep.attachments).toHaveLength(1);
+  expect(beforeEachAttachmentStep.attachments[0]).toEqual(
+    expect.objectContaining({
+      name: "test2",
       type: "text/plain",
     }),
   );
