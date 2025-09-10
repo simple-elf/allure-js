@@ -227,7 +227,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
       import { test, expect } from '@playwright/test';
 
       const example = async (some) => {
-        await test.info().attach(some, { body: some });
+        await test.info().attach("test", { body: some });
       };
 
       test.describe("Scratch", () => {
@@ -272,7 +272,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   expect(beforeAllAttachmentStep.attachments).toHaveLength(1);
   expect(beforeAllAttachmentStep.attachments[0]).toEqual(
     expect.objectContaining({
-      name: "test1",
+      name: "test",
       type: "text/plain",
     }),
   );
@@ -286,33 +286,33 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   expect(beforeEachAttachmentStep.attachments).toHaveLength(1);
   expect(beforeEachAttachmentStep.attachments[0]).toEqual(
     expect.objectContaining({
-      name: "test2",
+      name: "test",
       type: "text/plain",
     }),
   );
 
-  const test2Step = testResult.steps[1];
-  expect(test2Step.name).toBe("test2");
-  expect(test2Step.steps).toHaveLength(1);
+  const test3Step = testResult.steps[1];
+  expect(test3Step.name).toBe("test3");
+  expect(test3Step.steps).toHaveLength(1);
 
-  const test2AttachmentStep = test2Step.steps[0];
-  expect(test2AttachmentStep.name).toBe("test");
-  expect(test2AttachmentStep.attachments).toHaveLength(1);
-  expect(test2AttachmentStep.attachments[0]).toEqual(
+  const test3AttachmentStep = test3Step.steps[0];
+  expect(test3AttachmentStep.name).toBe("test3");
+  expect(test3AttachmentStep.attachments).toHaveLength(1);
+  expect(test3AttachmentStep.attachments[0]).toEqual(
     expect.objectContaining({
       name: "test",
       type: "text/plain",
     }),
   );
 
-  const test3Step = testResult.steps[2];
-  expect(test3Step.name).toBe("test3");
-  expect(test3Step.steps).toHaveLength(1);
+  const test4Step = testResult.steps[2];
+  expect(test4Step.name).toBe("test4");
+  expect(test4Step.steps).toHaveLength(1);
 
-  const test3AttachmentStep = test3Step.steps[0];
-  expect(test3AttachmentStep.name).toBe("test");
-  expect(test3AttachmentStep.attachments).toHaveLength(1);
-  expect(test3AttachmentStep.attachments[0]).toEqual(
+  const test4AttachmentStep = test4Step.steps[0];
+  expect(test4AttachmentStep.name).toBe("test4");
+  expect(test4AttachmentStep.attachments).toHaveLength(1);
+  expect(test4AttachmentStep.attachments[0]).toEqual(
     expect.objectContaining({
       name: "test",
       type: "text/plain",
