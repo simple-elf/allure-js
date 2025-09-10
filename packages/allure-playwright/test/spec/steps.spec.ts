@@ -293,7 +293,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   );
 
   const test3Step = testResult.steps[1];
-  expect(test3Step.name).toBe("test");
+  expect(test3Step.name).toBe("test3");
   expect(test3Step.steps).toHaveLength(1);
 
   const test3AttachmentStep = test3Step.steps[0];
@@ -307,7 +307,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   );
 
   const test4Step = testResult.steps[2];
-  expect(test4Step.name).toBe("test");
+  expect(test4Step.name).toBe("test4");
   expect(test4Step.steps).toHaveLength(1);
 
   const test4AttachmentStep = test4Step.steps[0];
