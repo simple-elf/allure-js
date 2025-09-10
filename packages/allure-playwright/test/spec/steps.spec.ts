@@ -222,12 +222,12 @@ it("should ignore route.continue() steps", async () => {
 });
 
 it("should attach attachments to correct steps in hooks and test steps", async () => {
-  const { tests } = await runPlaywrightInlineTest({
+  const { tests, attachments } = await runPlaywrightInlineTest({
     "a.test.js": `
       import { test, expect } from '@playwright/test';
 
       const example = async (some) => {
-        await test.info().attach("test", { body: some });
+        await attachment('test', some, 'text/plain');
       };
 
       test.describe("Scratch", () => {
@@ -274,7 +274,6 @@ it("should attach attachments to correct steps in hooks and test steps", async (
     expect.objectContaining({
       name: "test",
       type: "text/plain",
-      source: expect.stringMatching("test1"),
     }),
   );
 
@@ -289,7 +288,6 @@ it("should attach attachments to correct steps in hooks and test steps", async (
     expect.objectContaining({
       name: "test",
       type: "text/plain",
-      source: expect.stringMatching("test2"),
     }),
   );
 
@@ -304,7 +302,6 @@ it("should attach attachments to correct steps in hooks and test steps", async (
     expect.objectContaining({
       name: "test",
       type: "text/plain",
-      source: expect.stringMatching("test3"),
     }),
   );
 
@@ -319,11 +316,19 @@ it("should attach attachments to correct steps in hooks and test steps", async (
     expect.objectContaining({
       name: "test",
       type: "text/plain",
-      source: expect.stringMatching("test4"),
     }),
   );
 
   const afterHooksStep = testResult.steps[3];
   expect(afterHooksStep.name).toBe("After Hooks");
   expect(afterHooksStep.steps).toHaveLength(0);
+
+
+  const [attachment3] = tests[0].steps[1].steps[0].steps[0].attachments;
+  const [attachment4] = tests[0].steps[2].steps[1].steps[0].attachments;
+
+  expect(attachments).toHaveProperty(attachment3.source);
+  expect(attachments).toHaveProperty(attachment4.source);
+  expect(Buffer.from(attachments[attachment3.source] as string, "base64").toString()).toEqual("test3");
+  expect(Buffer.from(attachments[attachment4.source] as string, "base64").toString()).toEqual("test4");
 });
