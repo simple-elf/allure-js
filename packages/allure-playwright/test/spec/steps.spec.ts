@@ -232,15 +232,24 @@ it("should attach attachments to correct steps in hooks and test steps", async (
 
       test.describe("Scratch", () => {
         test.beforeAll(async () => {
-          await example("test");
+          await example("test1");
+        });
+        test.beforeEach(async () => {
+          await example("test2");
         });
         test("test", async () => {
-          await test.step("test2", async () => {
-            await example("test2");
-          });
           await test.step("test3", async () => {
             await example("test3");
           });
+          await test.step("test4", async () => {
+            await example("test4");
+          });
+        });
+        test.afterAll(async () => {
+          await example("test5");
+        });
+        test.afterEach(async () => {
+          await example("test6");
         });
       });
     `,
@@ -249,18 +258,18 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   expect(tests).toHaveLength(1);
   const [testResult] = tests;
 
-  expect(testResult.steps).toHaveLength(4);
+  expect(testResult.steps).toHaveLength(7);
   const beforeHooksStep = testResult.steps[0];
   expect(beforeHooksStep.name).toBe("Before Hooks");
-  expect(beforeHooksStep.steps).toHaveLength(1);
+  expect(beforeHooksStep.steps).toHaveLength(2);
 
   const beforeAllStep = beforeHooksStep.steps[0];
   expect(beforeAllStep.name).toBe("beforeAll hook");
   expect(beforeAllStep.steps).toHaveLength(1);
 
   const beforeAllAttachmentStep = beforeAllStep.steps[0];
-  expect(beforeAllAttachmentStep.name).toBe("test");
-  expect(beforeAllAttachmentStep.attachments).toHaveLength(1);
+  expect(beforeAllAttachmentStep.name).toBe("test1");
+  expect(beforeAllAttachmentStep.attachments).toHaveLength(2);
   expect(beforeAllAttachmentStep.attachments[0]).toEqual(
     expect.objectContaining({
       name: "test",
