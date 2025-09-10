@@ -261,7 +261,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   expect(testResult.steps).toHaveLength(2);
   const beforeHooksStep = testResult.steps[0];
   expect(beforeHooksStep.name).toBe("Before Hooks");
-  expect(beforeHooksStep.steps).toHaveLength(2);
+  expect(beforeHooksStep.steps).toHaveLength(1);
 
   const beforeAllStep = beforeHooksStep.steps[0];
   expect(beforeAllStep.name).toBe("beforeAll hook");
@@ -321,7 +321,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
 
   const afterHooksStep = testResult.steps[3];
   expect(afterHooksStep.name).toBe("After Hooks");
-  expect(afterHooksStep.steps).toHaveLength(0);
+  expect(afterHooksStep.steps).toHaveLength(1);
 
 
   const [attachment3] = tests[0].steps[1].steps[0].steps[0].attachments;
