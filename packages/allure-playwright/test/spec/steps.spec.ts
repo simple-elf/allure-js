@@ -227,7 +227,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
       import { test, expect } from '@playwright/test';
 
       const example = async (some) => {
-        await attachment('test', some, 'text/plain');
+        await test.info().attach("test", { body: some });
       };
 
       test.describe("Scratch", () => {
