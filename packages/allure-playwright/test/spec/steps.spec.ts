@@ -324,21 +324,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   expect(afterHooksStep.name).toBe("After Hooks");
   expect(afterHooksStep.steps).toHaveLength(2);
 
-  const afterAllStep = afterHooksStep.steps[0];
-  expect(afterAllStep.name).toBe("afterAll hook");
-  expect(afterAllStep.steps).toHaveLength(1);
-
-  const afterAllAttachmentStep = afterAllStep.steps[0];
-  expect(afterAllAttachmentStep.name).toBe("test");
-  expect(afterAllAttachmentStep.attachments).toHaveLength(1);
-  expect(afterAllAttachmentStep.attachments[0]).toEqual(
-    expect.objectContaining({
-      name: "test",
-      type: "text/plain",
-    }),
-  );
-
-  const afterEachStep = afterHooksStep.steps[1];
+  const afterEachStep = afterHooksStep.steps[0];
   expect(afterEachStep.name).toBe("afterEach hook");
   expect(afterEachStep.steps).toHaveLength(1);
 
@@ -346,6 +332,20 @@ it("should attach attachments to correct steps in hooks and test steps", async (
   expect(afterEachAttachmentStep.name).toBe("test");
   expect(afterEachAttachmentStep.attachments).toHaveLength(1);
   expect(afterEachAttachmentStep.attachments[0]).toEqual(
+    expect.objectContaining({
+      name: "test",
+      type: "text/plain",
+    }),
+  );
+
+  const afterAllStep = afterHooksStep.steps[1];
+  expect(afterAllStep.name).toBe("afterAll hook");
+  expect(afterAllStep.steps).toHaveLength(1);
+
+  const afterAllAttachmentStep = afterAllStep.steps[0];
+  expect(afterAllAttachmentStep.name).toBe("test");
+  expect(afterAllAttachmentStep.attachments).toHaveLength(1);
+  expect(afterAllAttachmentStep.attachments[0]).toEqual(
     expect.objectContaining({
       name: "test",
       type: "text/plain",
