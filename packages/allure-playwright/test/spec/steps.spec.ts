@@ -228,7 +228,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
       import { attachment } from 'allure-js-commons';
 
       const example = async (some) => {
-        await test.info().attach("test", { body: some });
+        await test.info().attach(some, { body: some });
       };
 
       test.describe("Scratch", () => {
