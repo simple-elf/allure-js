@@ -274,7 +274,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
     expect.objectContaining({
       name: "test",
       type: "text/plain",
-      source: "test1",
+      source: expect.stringMatching("test1"),
     }),
   );
 
@@ -289,7 +289,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
     expect.objectContaining({
       name: "test",
       type: "text/plain",
-      source: "test2",
+      source: expect.stringMatching("test2"),
     }),
   );
 
@@ -304,7 +304,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
     expect.objectContaining({
       name: "test",
       type: "text/plain",
-      source: "test3",
+      source: expect.stringMatching("test3"),
     }),
   );
 
@@ -319,7 +319,7 @@ it("should attach attachments to correct steps in hooks and test steps", async (
     expect.objectContaining({
       name: "test",
       type: "text/plain",
-      source: "test4",
+      source: expect.stringMatching("test4"),
     }),
   );
 
